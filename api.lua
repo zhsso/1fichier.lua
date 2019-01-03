@@ -19,22 +19,22 @@ end
 
 function api.folderList(folderId)
     local data = {folder_id=folderId}
-    api.oneFichierPost('https://api.1fichier.com/v1/folder/ls.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/folder/ls.cgi', data)
 end
 
 function api.fileList(folderId)
     local data = {folder_id=folderId}
-    api.oneFichierPost('https://api.1fichier.com/v1/file/ls.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/file/ls.cgi', data)
 end
 
 function api.moveFiles(urls, folderId)
     local data = {urls = urls, destination_folder_id = folderId}
-    api.oneFichierPost('https://api.1fichier.com/v1/file/mv.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/file/mv.cgi', data)
 end
 
 function api.copyFiles(urls, folderId)
     local data = {urls = urls, destination_folder_id = folderId}
-    api.oneFichierPost('https://api.1fichier.com/v1/file/cp.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/file/cp.cgi', data)
 end
 
 function api.removeFiles(urls)
@@ -43,32 +43,32 @@ function api.removeFiles(urls)
         files[#files + 1] =  {url = url}
     end
     local data = { files = files }
-    api.oneFichierPost('https://api.1fichier.com/v1/file/rm.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/file/rm.cgi', data)
 end
 
 function api.getFileLink(url)
     local data = { url = url }
-    api.oneFichierPost('https://api.1fichier.com/v1/download/get_token.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/download/get_token.cgi', data)
 end
 
 function api.makeFolder(foldname, foldId)
     local data = { name = foldname, folder_id = foldId }
-    api.oneFichierPost('https://api.1fichier.com/v1/folder/mkdir.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/folder/mkdir.cgi', data)
 end
 
 function api.moveFolder(folderId, dstId)
     local data = { folder_id = folderId, destination_folder_id = dstId }
-    api.oneFichierPost('https://api.1fichier.com/v1/folder/mv.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/folder/mv.cgi', data)
 end
 
 function api.removeFolder(folderId)
     local data = { folder_id = folderId }
-    api.oneFichierPost('https://api.1fichier.com/v1/folder/rm.cgi', data)
+     return api.oneFichierPost('https://api.1fichier.com/v1/folder/rm.cgi', data)
 end
 
 function api.listAll(root, folderId)
-    root.files = api.fileList(folderId).items
-    root.folders = api.folderList(folderId).sub_folders or {}
+    root.files = (api.fileList(folderId) or {}).items or {}
+    root.folders = (api.folderList(folderId) or {}).sub_folders or {}
     api.fmaps[folderId] = root
     for _, file in pairs(root.files) do
         file.fatherId = folderId
