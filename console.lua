@@ -1,5 +1,4 @@
 local api = require "api"
-local pretty = require "pretty"
 
 local function ssplit(inputstr, sep)
         if sep == nil then
