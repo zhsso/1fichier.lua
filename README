@@ -1,0 +1,16 @@
+# 1fichier
+1fichier tools
+
+usage:
+
+luarocks install requests
+
+lua console.lua
+
+first step:
+
+setkey API_KEY
+
+next:
+
+in source
